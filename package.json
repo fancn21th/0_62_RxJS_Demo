@@ -1,0 +1,24 @@
+{
+  "name": "0_62_RxJS_Demo",
+  "version": "1.0.0",
+  "description": "A Rx JS Demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "poi src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fancn21th/0_62_RxJS_Demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fancn21th/0_62_RxJS_Demo/issues"
+  },
+  "homepage": "https://github.com/fancn21th/0_62_RxJS_Demo#readme",
+  "dependencies": {
+    "rxjs": "^5.5.12"
+  }
+}
