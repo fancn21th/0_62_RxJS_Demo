@@ -4,7 +4,7 @@
   "description": "A Rx JS Demo",
   "main": "index.js",
   "scripts": {
-    "start": "poi src/index.js",
+    "start": "poi develop src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/fancn21th/0_62_RxJS_Demo#readme",
   "dependencies": {
+    "jquery": "^3.3.1",
     "rxjs": "^5.5.12"
   }
 }
