@@ -1,29 +1,28 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const source$ = new Observable(
-  observer => {
-    console.log('Creating Observable')
-    observer.next('foo')
-    observer.next('bar')
-    observer.next('baz')
+const myPromise = new Promise((resovle, reject) => {
+  console.log('Creating promise')
+  setTimeout(() => {
+    resovle('Hello from promise')
+  }, 3000)
+})
 
-    observer.error(new Error('something bad happened!'))
+// myPromise.then(x => console.log(x))
 
-    setTimeout(
-      () => {
-        observer.next('one last value')
-        observer.complete()
-      },
-      2000
-    )
-  }
+const source$ = Observable.fromPromise(myPromise)
+
+source$.subscribe(
+  x => console.log(x)
 )
 
-source$
-.catch(err => Observable.of(err))
-.subscribe(
-  v => console.log(v),
-  err => console.log(err),
-  c => console.log('completed')
-)
+const getUser = username => $.ajax({
+  url: `https://api.github.com/users/${username}`,
+  dataType: 'jsonp'
+}).promise()
+
+Observable
+  .fromPromise(getUser('fancn21th'))
+  .subscribe(
+    x => console.log(x)
+  )
