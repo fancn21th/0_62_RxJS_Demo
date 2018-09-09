@@ -1,20 +1,12 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const btn = $('#btn')
-const txt = $('#txt')
+const output = $('#output')
 
-const btnStream$  = Observable.fromEvent(btn, 'click')
-const txtStream$  = Observable.fromEvent(txt, 'keyup')
+const moveStream$  = Observable.fromEvent(document, 'mousemove')
 
-btnStream$.subscribe(
-    e => console.log(e, 'Clicked'),
-    err => console.log(err),
-    () => console.log('Completed')
-)
-
-txtStream$.subscribe(
-    e => console.log(e.currentTarget.value),
+moveStream$.subscribe(
+    e => output.text(`X:${e.clientX}  Y:${e.clientY}`),
     err => console.log(err),
     () => console.log('Completed')
 )
