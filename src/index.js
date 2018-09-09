@@ -1,39 +1,29 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const numbers = [1,2,3,4,5,6]
+const source$ = new Observable(
+  observer => {
+    console.log('Creating Observable')
+    observer.next('foo')
+    observer.next('bar')
+    observer.next('baz')
 
-const numbers$ = Observable.from(numbers)
+    observer.error(new Error('something bad happened!'))
 
-numbers$.subscribe(
-  v => console.log(v),
-  err => console.log(err),
-  complete => console.log('completed')
+    setTimeout(
+      () => {
+        observer.next('one last value')
+        observer.complete()
+      },
+      2000
+    )
+  }
 )
 
-const $posts = $('#posts')
-
-const posts = [
-  {
-    title: 'the lord of the rings',
-    body: 'this is post body'
-  },
-  {
-    title: 'the shawshank redemption',
-    body: 'this is post body'
-  },
-  {
-    title: 'the godfater',
-    body: 'this is post body'
-  }
-]
-
-const posts$ = Observable.from(posts)
-
-posts$.subscribe(
-  post => {
-    $posts.append(`
-        <li>${post.title}</li>
-      `)
-  }
+source$
+.catch(err => Observable.of(err))
+.subscribe(
+  v => console.log(v),
+  err => console.log(err),
+  c => console.log('completed')
 )
