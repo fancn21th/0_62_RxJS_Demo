@@ -1,12 +1,39 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const output = $('#output')
+const numbers = [1,2,3,4,5,6]
 
-const moveStream$  = Observable.fromEvent(document, 'mousemove')
+const numbers$ = Observable.from(numbers)
 
-moveStream$.subscribe(
-    e => output.text(`X:${e.clientX}  Y:${e.clientY}`),
-    err => console.log(err),
-    () => console.log('Completed')
+numbers$.subscribe(
+  v => console.log(v),
+  err => console.log(err),
+  complete => console.log('completed')
+)
+
+const $posts = $('#posts')
+
+const posts = [
+  {
+    title: 'the lord of the rings',
+    body: 'this is post body'
+  },
+  {
+    title: 'the shawshank redemption',
+    body: 'this is post body'
+  },
+  {
+    title: 'the godfater',
+    body: 'this is post body'
+  }
+]
+
+const posts$ = Observable.from(posts)
+
+posts$.subscribe(
+  post => {
+    $posts.append(`
+        <li>${post.title}</li>
+      `)
+  }
 )
