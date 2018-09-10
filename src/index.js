@@ -1,28 +1,21 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const myPromise = new Promise((resovle, reject) => {
-  console.log('Creating promise')
-  setTimeout(() => {
-    resovle('Hello from promise')
-  }, 3000)
-})
+/* map */
+// const source$ = Observable
+//                   .interval(1000)
+//                   .take(5)
+//                   .map(v => v * v)
+//
+// source$.subscribe(
+//   v => console.log(v)
+// )
 
-// myPromise.then(x => console.log(x))
 
-const source$ = Observable.fromPromise(myPromise)
+const source$  = Observable.from(['Jone', 'Tom', 'Shawn'])
+      .map(v => v.toUpperCase())
+      .map(v => `I am ${v}`)
 
 source$.subscribe(
-  x => console.log(x)
+  v => console.log(v)
 )
-
-const getUser = username => $.ajax({
-  url: `https://api.github.com/users/${username}`,
-  dataType: 'jsonp'
-}).promise()
-
-Observable
-  .fromPromise(getUser('fancn21th'))
-  .subscribe(
-    x => console.log(x)
-  )
