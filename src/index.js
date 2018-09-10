@@ -1,56 +1,30 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-/* map */
-// const source$ = Observable
-//                   .interval(1000)
-//                   .take(5)
-//                   .map(v => v * v)
+/* merge */
+
+/* common syntax */
+
+// Observable.of('Hello')
+//           .merge(Observable.of('Everyone'))
+//           .subscribe(v => console.log(v))
 //
-// source$.subscribe(
-//   v => console.log(v)
-// )
+// Observable.interval(2000)
+//           .merge(Observable.interval('500'))
+//           .take(25)
+//           .subscribe(v => console.log(v))
 
-/* map * 2 */
-// const source$  = Observable.from(['Jone', 'Tom', 'Shawn'])
-//       .map(v => v.toUpperCase())
-//       .map(v => `I am ${v}`)
+/* short syntax */
+
+// const source1$ = Observable.interval(2000).map(v => `Merge 1 : ${v}`)
+// const source2$ = Observable.interval(200).map(v => `Merge 2 : ${v}`)
 //
-// source$.subscribe(
-//   v => console.log(v)
-// )
+// Observable.merge(source1$, source2$).take(25).subscribe(v => console.log(v))
 
-/* map * 2 */
-// const getGithubUser = username => $.ajax({
-//   url: `https://api.github.com/users/${username}`,
-//   dateType: 'jsonp'
-// }).promise()
-//
-// Observable.fromPromise(getGithubUser('fancn21th'))
-//   .map(user => user.name)
-//   .subscribe(
-//     v => console.log(v)
-//   )
 
-/* pluck */
+/* concat */
 
-const users = [
-  {
-    name: 'Will',
-    age: '34'
-  },
-  {
-    name: 'Mike',
-    age: '37'
-  },
-  {
-    name: 'Tony',
-    age: '36'
-  },
-]
+const source1$ = Observable.range(0, 5).map(v => `Source 1 : ${v}`)
+const source2$ = Observable.range(6, 5).map(v => `Source 2 : ${v}`)
 
-const users$ = Observable.from(users).pluck('name')
-
-users$.subscribe(
-  v => console.log(v)
-)
+Observable.concat(source1$, source2$).subscribe(v => console.log(v))
