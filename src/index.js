@@ -1,28 +1,33 @@
 import { Observable } from 'rxjs'
 import $ from 'jquery'
 
-const myPromise = new Promise((resovle, reject) => {
-  console.log('Creating promise')
-  setTimeout(() => {
-    resovle('Hello from promise')
-  }, 3000)
-})
+// interval, timer, range
 
-// myPromise.then(x => console.log(x))
+// const source$ = Observable
+//                 .interval(100)
+//                 .take(4)
+//
+// source$.subscribe(
+//   x => console.log(x),
+//   err => console.log(err),
+//   complete => console.log('completed')
+// )
 
-const source$ = Observable.fromPromise(myPromise)
+// starting untill 4000 millsecs
+// const source$ = Observable
+//                 .timer(4000, 1000)
+//                 .take(4)
+//
+// source$.subscribe(
+//   x => console.log(x),
+//   err => console.log(err),
+//   complete => console.log('completed')
+// )
+
+const source$ = Observable.range(0, 5)
 
 source$.subscribe(
-  x => console.log(x)
+  x => console.log(x),
+  err => console.log(err),
+  complete => console.log('completed')
 )
-
-const getUser = username => $.ajax({
-  url: `https://api.github.com/users/${username}`,
-  dataType: 'jsonp'
-}).promise()
-
-Observable
-  .fromPromise(getUser('fancn21th'))
-  .subscribe(
-    x => console.log(x)
-  )
